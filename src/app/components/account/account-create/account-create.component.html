@@ -1,0 +1,20 @@
+<div class="container">
+  <div class="row">
+    <div class="col-12 mt-2">
+      <button (click)="createNewAccount()">Create New Account</button>
+      <button [routerLink]="'/account/import'">Import Existing Account</button>
+      <p>Seed: {{ account ? account.seed : '/' }}</p>
+      <p>Mnemonic: {{ mnemonic || '/' }}</p>
+      <p>Wallets:</p>
+      <ng-container *ngIf="account && account.wallets">
+        <div class="mt-3" *ngFor="let wallet of account.wallets">
+          <ul>
+            <li>ID: {{ wallet.id }}</li>
+            <li>Index: {{ wallet.index }}</li>
+          </ul>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+</div>
+
