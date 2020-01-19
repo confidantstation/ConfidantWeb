@@ -77,7 +77,7 @@ export class AccountService {
     if (this.account.type === 'privateKey') {
       throw new Error(`Cannot add another account in private key mode`);
     } else if (this.account.type === 'seed') {
-      wallet = this._createSeedAccount(walletIndex);
+      wallet = this._createWallet(walletIndex);
     }
 
     this.account.wallets.push(wallet);
@@ -90,10 +90,10 @@ export class AccountService {
 
   /**
    * @private
-   * @method _createSeedAccount
+   * @method _createWallet
    * @returns {IWallet}
    */
-  private _createSeedAccount(index): IWallet {
+  private _createWallet(index): IWallet {
     const { walletBytes,  walletKeyPair, walletAddress } = this._getWalletData(index);
 
     return {

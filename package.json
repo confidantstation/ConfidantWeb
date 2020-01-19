@@ -34,7 +34,9 @@
     "blakejs": "^1.1.0",
     "bootstrap": "^4.4.1",
     "buffer": "^5.4.3",
+    "concat-typed-array": "^1.0.2",
     "electron-log": "^4.0.3",
+    "libsodium-wrappers": "^0.7.6",
     "rxjs": "~6.5.4",
     "tslib": "^1.10.0",
     "zone.js": "~0.9.1"
