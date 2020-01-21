@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AccountService, IAccount } from '../../../services/account.service';
 import { LibsodiumService } from '../../../services/libsodium.service';
+import * as bip39 from 'bip39';
 
 @Component({
     selector: 'app-account-create',
@@ -31,19 +32,19 @@ export class AccountCreateComponent implements OnInit {
     /**
      * @method createNewAccount
      */
-    createNewAccount(): void {
-        // this.account = this._accountService.create();
-        // this.mnemonic = bip39.entropyToMnemonic(this.account.seed);
+    async createNewAccount(): Promise<void> {
+        this.account = await this._accountService.create();
+        this.mnemonic = bip39.entropyToMnemonic(this.account.seed);
 
-        const message = 'Confidant';
-        console.log('message: ', message);
-        const encrypted = this._libsodiumService.encrypt(message);
-        console.log('encrypted: ', encrypted);
-        try {
-            const decrypted= this._libsodiumService.decrypt(encrypted);
-            console.log('decrypted: ', decrypted);
-        } catch (e) {
-            console.error(e);
-        }
+        // const message = 'Confidant';
+        // console.log('message: ', message);
+        // const encrypted = this._libsodiumService.encrypt(message);
+        // console.log('encrypted: ', encrypted);
+        // try {
+        //     const decrypted= this._libsodiumService.decrypt(encrypted);
+        //     console.log('decrypted: ', decrypted);
+        // } catch (e) {
+        //     console.error(e);
+        // }
     }
 }

@@ -169,14 +169,16 @@ export class AccountService {
 
   /**
    * @method loadAccountsFromIndex
-   * @returns {IAccount}
+   * @returns Promise<IAccount>
    */
-  create(): IAccount {
+  async create(): Promise<IAccount> {
     this._resetAccount();
 
     const seedBytes = this._utilService.wallet.generateSeedBytes();
     this.account.seedBytes = seedBytes;
     this.account.seed = this._utilService.hex.fromUint8(seedBytes);
+
+    // const account = await this._apiService.createAccount(this.account.seed);
 
     this._addAccountWallet();
 

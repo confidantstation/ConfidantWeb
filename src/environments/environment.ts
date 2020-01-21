@@ -8,7 +8,7 @@ export const environment = {
   version: '0.0.1',
   qlcChainNetwork: 'main', // test or main
   rpcUrl: {
-    'test': '',
+    'test': 'https://rpc-test.qlcchain.online',
     'main': 'https://rpc.qlcchain.online'
   },
   wsUrl: {

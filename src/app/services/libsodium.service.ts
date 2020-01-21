@@ -31,7 +31,7 @@ export class LibsodiumService {
         const publicKey = this._libsodium.crypto_sign_ed25519_pk_to_curve25519(keyPair.publicKey);
         const tempKeyPair = this._libsodium.crypto_box_keypair();
         const nonce = this._libsodium.randombytes_buf(this._libsodium.crypto_secretbox_NONCEBYTES);
-        this._key = this._libsodium.crypto_box_beforenm(tempKeyPair.privateKey, publicKey);
+        this._key = this._libsodium.crypto_box_beforenm(publicKey, secretKey);
     }
 
     /**
@@ -40,7 +40,7 @@ export class LibsodiumService {
      * @param {string} ascii
      * @returns {Uint8Array}
      */
-    private _atob(ascii): Uint8Array {
+    private _atob(ascii: string): Uint8Array {
         return Uint8Array.from(atob(ascii), c => c.charCodeAt(0));
     }
 
@@ -50,7 +50,7 @@ export class LibsodiumService {
      * @param buffer
      * @returns {string}
      */
-    private _btoa(buffer): string {
+    private _btoa(buffer: Buffer): string {
         const binary = [];
         const bytes = new Uint8Array(buffer);
 
@@ -67,7 +67,7 @@ export class LibsodiumService {
      * @param {string} message
      * @returns {Uint8Array}
      */
-    private _encryptAndPrependNonce(message) {
+    private _encryptAndPrependNonce(message: string): Uint8Array {
         const nonce = this._libsodium.randombytes_buf(this._nonceBytes);
         this._nonce = nonce.toString();
 
@@ -82,7 +82,7 @@ export class LibsodiumService {
      * @param {Uint8Array} nonceAndCiphertext
      * @returns {string}
      */
-    private _decryptAfterExtractingNonce(nonceAndCiphertext) {
+    private _decryptAfterExtractingNonce(nonceAndCiphertext: Uint8Array): string {
         const nonce = nonceAndCiphertext.slice(0, this._nonceBytes);
 
         if (this._nonce !== nonce.toString()) {
@@ -99,7 +99,7 @@ export class LibsodiumService {
      * @param {string} message
      * @returns {string}
      */
-    encrypt(message) {
+    encrypt(message: string): string {
         return this._btoa(this._encryptAndPrependNonce(message));
     }
 
@@ -108,7 +108,7 @@ export class LibsodiumService {
      * @param {string} nonceAndCiphertext
      * @returns {string}
      */
-    decrypt(nonceAndCiphertext) {
+    decrypt(nonceAndCiphertext: string): string {
         return this._decryptAfterExtractingNonce(this._atob(nonceAndCiphertext));
     }
 }
