@@ -8,6 +8,7 @@ import { AccountComponent } from './components/account/account.component';
 import { AccountCreateComponent } from './components/account/account-create/account-create.component';
 import { AccountImportComponent } from './components/account/account-import/account-import.component';
 import { FormsModule } from '@angular/forms';
+import { ChatComponent } from './components/chat/chat.component';
 
 @NgModule({
   declarations: [
@@ -15,7 +16,8 @@ import { FormsModule } from '@angular/forms';
     HomeComponent,
     AccountComponent,
     AccountCreateComponent,
-    AccountImportComponent
+    AccountImportComponent,
+    ChatComponent
   ],
   imports: [
     BrowserModule,
