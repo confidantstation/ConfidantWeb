@@ -19,7 +19,7 @@ export class LibsodiumService {
      * @constructor
      */
     constructor() {
-        this._init();
+        this._init().catch(console.log);
     }
 
     /**
@@ -46,6 +46,11 @@ export class LibsodiumService {
         this._key = this._libsodium.crypto_box_beforenm(publicKey, secretKey);
         this._keyAlice = this._libsodium.crypto_box_beforenm(publicKeyBob, secretKeyAlice);
         this._keyBob = this._libsodium.crypto_box_beforenm(publicKeyAlice, secretKeyBob);
+
+        const keyPairAliceTemp = this._libsodium.crypto_box_keypair();
+
+        this._keyAlice = this._libsodium.crypto_box_beforenm(publicKeyBob, keyPairAliceTemp.privateKey);
+        this._keyBob = this._libsodium.crypto_box_beforenm(keyPairAliceTemp.publicKey, secretKeyBob);
     }
 
     /**
