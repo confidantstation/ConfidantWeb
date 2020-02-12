@@ -9,22 +9,27 @@ import { AccountCreateComponent } from './components/account/account-create/acco
 import { AccountImportComponent } from './components/account/account-import/account-import.component';
 import { FormsModule } from '@angular/forms';
 import { ChatComponent } from './components/chat/chat.component';
+import { SocialComponent } from './components/social/social.component';
+import { EmailComponent } from './components/social/email/email.component';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    HomeComponent,
-    AccountComponent,
-    AccountCreateComponent,
-    AccountImportComponent,
-    ChatComponent
-  ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    FormsModule
-  ],
-  providers: [],
-  bootstrap: [AppComponent]
+    declarations: [
+        AppComponent,
+        HomeComponent,
+        AccountComponent,
+        AccountCreateComponent,
+        AccountImportComponent,
+        ChatComponent,
+        SocialComponent,
+        EmailComponent
+    ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        FormsModule
+    ],
+    providers: [],
+    bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}

@@ -3,7 +3,9 @@
         <div class="col-12 mt-2">
             <p>Encrypt</p>
             <textarea [(ngModel)]="message" [style.width.px]="500" [style.height.px]="100"></textarea>
-            <p><button (click)="encrypt()">Encrypt</button></p>
+            <p>
+                <button (click)="encrypt()">Encrypt</button>
+            </p>
             <p><strong>Encrypted message by aes-128-ctr</strong></p>
             <p>{{ messageEncryptedAes128 }}</p>
             <p><strong>Encrypted message by crypto_aead_xchacha20poly1305_ietf_encrypt</strong></p>
@@ -13,17 +15,23 @@
             <br><br>
             <p><strong>Decrypt by aes-128-ctr</strong></p>
             <textarea [(ngModel)]="encryptedMessageAes128" [style.width.px]="500" [style.height.px]="100"></textarea>
-            <p><button (click)="decrypt()">Decrypt</button></p>
+            <p>
+                <button (click)="decrypt()">Decrypt</button>
+            </p>
             <p><i>Decrypted message:</i></p>
             <p>{{ decryptedMessageAes128 }}</p>
             <p><strong>Decrypt by crypto_aead_xchacha20poly1305_ietf_decrypt</strong></p>
             <textarea [(ngModel)]="encryptedMessage" [style.width.px]="500" [style.height.px]="100"></textarea>
-            <p><button (click)="decrypt('crypto_aead_xchacha20poly1305_ietf_decrypt')">Decrypt</button></p>
+            <p>
+                <button (click)="decrypt('crypto_aead_xchacha20poly1305_ietf_decrypt')">Decrypt</button>
+            </p>
             <p><i>Decrypted message:</i></p>
             <p>{{ decryptedMessage }}</p>
             <p><strong>Decrypt by crypto_secretbox_open_easy</strong></p>
             <textarea [(ngModel)]="encryptedMessageEasy" [style.width.px]="500" [style.height.px]="100"></textarea>
-            <p><button (click)="decrypt('crypto_secretbox_open_easy')">Decrypt</button></p>
+            <p>
+                <button (click)="decrypt('crypto_secretbox_open_easy')">Decrypt</button>
+            </p>
             <p><i>Decrypted message:</i></p>
             <p>{{ decryptedMessageEasy }}</p>
         </div>

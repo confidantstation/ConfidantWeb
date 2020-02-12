@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { AccountService, IAccount } from '../../../services/account.service';
+import { AccountService } from '../../../services/account.service';
 import { LibsodiumService } from '../../../services/libsodium.service';
-import * as bip39 from 'bip39';
+import { IAccount } from '../../../interfaces/app.interface';
 
 @Component({
     selector: 'app-account-create',
@@ -33,8 +33,11 @@ export class AccountCreateComponent implements OnInit {
      * @method createNewAccount
      */
     async createNewAccount(): Promise<void> {
-        this.account = await this._accountService.create();
-        this.mnemonic = bip39.entropyToMnemonic(this.account.seed);
+        await this._accountService.create();
+        await this._accountService.updateChain();
+
+        // this.account = await this._accountService.create();
+        // this.mnemonic = bip39.entropyToMnemonic(this.account.seed);
 
         // const message = 'Confidant';
         // console.log('message: ', message);

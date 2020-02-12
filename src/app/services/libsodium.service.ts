@@ -43,14 +43,24 @@ export class LibsodiumService {
         const secretKeyBob = this._libsodium.crypto_sign_ed25519_sk_to_curve25519(keyPairBob.privateKey);
         const publicKeyBob = this._libsodium.crypto_sign_ed25519_pk_to_curve25519(keyPairBob.publicKey);
 
-        this._key = this._libsodium.crypto_box_beforenm(publicKey, secretKey);
-        this._keyAlice = this._libsodium.crypto_box_beforenm(publicKeyBob, secretKeyAlice);
-        this._keyBob = this._libsodium.crypto_box_beforenm(publicKeyAlice, secretKeyBob);
+        // this._key = this._libsodium.crypto_box_beforenm(publicKey, secretKey);
+        // this._keyAlice = this._libsodium.crypto_box_beforenm(publicKeyBob, secretKeyAlice);
+        // this._keyBob = this._libsodium.crypto_box_beforenm(publicKeyAlice, secretKeyBob);
 
+        console.log(keyPair);
+        console.log(publicKey);
+        console.log(this._btoa(keyPair.publicKey));
+        console.log(this._btoa(publicKey));
+        console.log(secretKey);
+        console.log(this._btoa(keyPair.privateKey));
+        console.log(this._btoa(secretKey));
         const keyPairAliceTemp = this._libsodium.crypto_box_keypair();
 
         this._keyAlice = this._libsodium.crypto_box_beforenm(publicKeyBob, keyPairAliceTemp.privateKey);
         this._keyBob = this._libsodium.crypto_box_beforenm(keyPairAliceTemp.publicKey, secretKeyBob);
+
+        // this._keyAlice = this._libsodium.crypto_box_beforenm(keyPairBob.publicKey, keyPairAliceTemp.privateKey);
+        // this._keyBob = this._libsodium.crypto_box_beforenm(keyPairAliceTemp.publicKey, keyPairBob.privateKey);
     }
 
     /**

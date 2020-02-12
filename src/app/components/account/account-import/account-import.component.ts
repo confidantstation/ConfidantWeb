@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { AccountService, IAccount } from '../../../services/account.service';
+import { AccountService } from '../../../services/account.service';
 import { ImportOptionEnum } from '../../../enums/import-option.enum';
 import * as bip39 from 'bip39';
+import { IAccount } from '../../../interfaces/app.interface';
 
 @Component({
     selector: 'app-account-import',
@@ -17,9 +18,7 @@ export class AccountImportComponent implements OnInit {
      * @constructor
      * @param {AccountService} _accountService
      */
-    constructor(
-        private _accountService: AccountService
-    ) {
+    constructor(private _accountService: AccountService) {
     }
 
     /**
@@ -31,7 +30,7 @@ export class AccountImportComponent implements OnInit {
     /**
      * @method import
      */
-    import(): void {
+    async import(): Promise<void> {
         if (!this.wif) {
             return;
         }
@@ -56,8 +55,6 @@ export class AccountImportComponent implements OnInit {
 
         }
 
-        this.account = this._accountService.createFromSeed(this.wif);
-
-        console.log(this.account);
+        await this._accountService.createFromSeed(this.wif);
     }
 }
