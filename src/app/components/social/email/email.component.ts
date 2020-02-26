@@ -8,10 +8,13 @@ import { SocialTypeEnum } from '../../../enums/social-type.enum';
     styleUrls: ['./email.component.scss']
 })
 export class EmailComponent implements OnInit {
-    email: string;
+    accounts: any[] = [];
+    email: string = 'dtacer@gmail.com';
+    emailAddress: string;
     code: string;
     generatedCode: number;
-    verifyStatus: boolean;
+    verifyStatus: boolean = undefined;
+    inProgress: boolean;
 
     /**
      * @constructor
@@ -37,6 +40,19 @@ export class EmailComponent implements OnInit {
      * @method verifyCode
      */
     async verifyCode(): Promise<void> {
+        this.inProgress = !this.inProgress;
         this.verifyStatus = await this._accountService.socialVerify(SocialTypeEnum.EMAIL, Number.parseInt(this.code));
+        this.inProgress = !this.inProgress;
+    }
+
+    /**
+     * @method getAccountByEmail
+     */
+    async getAccountByEmail(): Promise<void> {
+        this.inProgress = !this.inProgress;
+        this.accounts = await this._accountService.getAccountByTypeAndId(SocialTypeEnum.EMAIL, this.emailAddress);
+        this.inProgress = !this.inProgress;
+
+        console.log(this.accounts);
     }
 }

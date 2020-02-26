@@ -7,6 +7,7 @@ export interface IAccount {
     publicKey: string;
     address: string;
     social?: ISocial;
+    encryption?: IEncryption;
 }
 
 /**
@@ -20,5 +21,29 @@ export interface ISocial {
     },
     weChat?: {
         id: string;
+    }
+}
+
+/**
+ * @interface IEncryption
+ */
+export interface IEncryption {
+    keyPair: {
+        publicKey: string;
+        privateKey: string;
+    },
+    keyPairTemp: {
+        publicKey: string;
+        privateKey: string;
+    },
+    friend: {
+        keyPair: {
+            publicKey: string;
+            privateKey: string;
+        },
+        keyPairTemp: {
+            publicKey: string;
+            privateKey: string;
+        }
     }
 }

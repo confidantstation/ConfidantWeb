@@ -1,17 +1,36 @@
 <div class="container">
+    <div class="row mb-3">
+        <button [routerLink]="'/'" [disabled]="inProgress">Home</button>
+    </div>
     <div class="row">
         <div class="col-12 mt-2">
             <p>Enter your email address</p>
             <input [(ngModel)]="email">
-            <p>
-                <button (click)="sendEmail()">Send email</button>
-            </p>
+            <button (click)="sendEmail()" [disabled]="inProgress" class="ml-3">Send email</button>
+
             <p>Your code: {{ generatedCode }}</p>
             <input [(ngModel)]="code">
-            <p>
-                <button (click)="verifyCode()">Verify code</button>
-            </p>
-            <p>Verify status: {{ verifyStatus ? 'OK' : 'FAILED' }}</p>
+            <button (click)="verifyCode()" [disabled]="inProgress" class="ml-3 mb-4">Verify code</button>
+
+            <p>Verify and connect: {{ verifyStatus === undefined ? '' : verifyStatus ? 'SUCCESS' : 'FAILED' }}</p>
+
+            <p>Get data from chain</p>
+            <input [(ngModel)]="emailAddress">
+            <button (click)="getAccountByEmail()" [disabled]="inProgress" class="ml-3">Query</button>
+
+            <ng-container *ngIf="accounts.length > 0">
+                <div *ngFor="let account of accounts" style="margin-bottom: 20px">
+                    <span><strong>account:</strong> {{ account.account }}</span><br/>
+                    <span><strong>type:</strong> {{ account.type }}</span><br/>
+                    <span><strong>id:</strong> {{ account.id }}</span><br/>
+                    <span><strong>pubKey:</strong> {{ account.pubKey }}</span><br/>
+                    <span><strong>fee:</strong> {{ account.fee }}</span><br/>
+                    <span><strong>verifiers:</strong> {{ account.verifiers.join(', ') }}</span><br/>
+                    <span><strong>codes:</strong> {{ account.codes.join(', ') }}</span><br/>
+                    <span><strong>hash:</strong> {{ account.hash }}</span><br/>
+                    <span><strong>State:</strong> {{ account.State }}</span><br/>
+                </div>
+            </ng-container>
         </div>
     </div>
 </div>

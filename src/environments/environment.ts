@@ -6,7 +6,8 @@ export const environment = {
     production: true,
     desktop: true,
     version: '0.0.1',
-    qlcChainNetwork: 'main', // test or main
+    qlcChainNetwork: 'test', // test or main
+    localStorageKey: 'qlc-confidant',
     rpcUrl: {
         'test': 'http://47.103.54.171:29735',
         'main': 'https://rpc.qlcchain.online'
@@ -17,6 +18,10 @@ export const environment = {
     },
     chain: {
         fee: '500000000'
+    },
+    encryption: {
+        algorithm: 'aes-128-ctr',
+        fixedKeyword: 'UUxDSUQ='
     }
 };
 

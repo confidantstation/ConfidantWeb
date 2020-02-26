@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { LibsodiumService } from '../../services/libsodium.service';
+import { AccountService } from '../../services/account.service';
 
 @Component({
     selector: 'app-chat',
@@ -8,24 +8,19 @@ import { LibsodiumService } from '../../services/libsodium.service';
 })
 export class ChatComponent {
     message: string;
-    messageEncrypted: string;
-    messageEncryptedAes128: string;
-    messageEncryptedEasy: string;
-
     encryptedMessage: string;
-    encryptedMessageAes128: string;
-    encryptedMessageEasy: string;
-
     decryptedMessage: string;
-    decryptedMessageAes128: string;
-    decryptedMessageEasy: string;
+
+    messageFriend: string;
+    encryptedMessageFriend: string;
+    decryptedMessageFriend: string;
 
     /**
      * @constructor
-     * @param {LibsodiumService} _libsodiumService
+     * @param {AccountService} _accountService
      */
     constructor(
-        private _libsodiumService: LibsodiumService
+        private _accountService: AccountService
     ) {
     }
 
@@ -33,26 +28,33 @@ export class ChatComponent {
      * @method encrypt
      */
     encrypt(): void {
-        this.messageEncrypted = this._libsodiumService.encrypt(this.message);
-        this.messageEncryptedAes128 = this._libsodiumService.encryptAes128(this.message);
-        this.messageEncryptedEasy = this._libsodiumService.encryptEasy(this.message);
+        this.encryptedMessage = this._accountService.encrypt(this.message);
+    }
+
+    /**
+     * @method encryptFriend
+     */
+    encryptFriend(): void {
+        this.encryptedMessageFriend = this._accountService.encryptFriend(this.messageFriend);
     }
 
     /**
      * @method decrypt
-     * @param {string} algorithm
      */
-    decrypt(algorithm: string = 'aes128'): void {
-        switch (algorithm) {
-            case 'crypto_aead_xchacha20poly1305_ietf_decrypt':
-                this.decryptedMessage = this._libsodiumService.decrypt(this.encryptedMessage);
-                break;
-            case 'crypto_secretbox_open_easy':
-                this.decryptedMessageEasy = this._libsodiumService.decryptEasy(this.encryptedMessageEasy);
-                break;
-            default:
-                this.decryptedMessageAes128 = this._libsodiumService.decryptAes128(this.encryptedMessageAes128);
-                break;
+    decrypt(): void {
+        try {
+            this.decryptedMessage = this._accountService.decrypt(this.encryptedMessageFriend);
         }
+        catch (error) {
+            console.log('error');
+            console.log(error.message);
+        }
+    }
+
+    /**
+     * @method decryptFriend
+     */
+    decryptFriend(): void {
+        this.decryptedMessageFriend = this._accountService.decryptFriend(this.encryptedMessage);
     }
 }

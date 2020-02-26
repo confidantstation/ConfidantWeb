@@ -1,40 +1,46 @@
 <div class="container">
+    <div class="row mb-3">
+        <button [routerLink]="'/'">Home</button>
+    </div>
     <div class="row">
-        <div class="col-12 mt-2">
+            <div class="col-sm">
+                <h2>My account</h2>
+                <p>Encrypt</p>
+                <textarea [(ngModel)]="message" [style.width.px]="400" [style.height.px]="100"></textarea>
+                <p>
+                    <button (click)="encrypt()">Encrypt</button>
+                </p>
+                <p><strong>Encrypted message</strong></p>
+                <p>{{ encryptedMessage }}</p>
+                <br><br>
+                <p><strong>Decrypt</strong></p>
+                <textarea [(ngModel)]="encryptedMessageFriend" [style.width.px]="400" [style.height.px]="100"></textarea>
+                <p>
+                    <button (click)="decrypt()">Decrypt</button>
+                </p>
+                <p><i>Decrypted message:</i></p>
+                <p>{{ decryptedMessage }}</p>
+            </div>
+    </div>
+    <div class="row">
+
+        <div class="col-sm">
+            <h2>Friend's account</h2>
             <p>Encrypt</p>
-            <textarea [(ngModel)]="message" [style.width.px]="500" [style.height.px]="100"></textarea>
+            <textarea [(ngModel)]="messageFriend" [style.width.px]="400" [style.height.px]="100"></textarea>
             <p>
-                <button (click)="encrypt()">Encrypt</button>
+                <button (click)="encryptFriend()">Encrypt</button>
             </p>
-            <p><strong>Encrypted message by aes-128-ctr</strong></p>
-            <p>{{ messageEncryptedAes128 }}</p>
-            <p><strong>Encrypted message by crypto_aead_xchacha20poly1305_ietf_encrypt</strong></p>
-            <p>{{ messageEncrypted }}</p>
-            <p><strong>Encrypted message by crypto_secretbox_easy</strong></p>
-            <p>{{ messageEncryptedEasy }}</p>
+            <p><strong>Encrypted message</strong></p>
+            <p>{{ encryptedMessageFriend }}</p>
             <br><br>
-            <p><strong>Decrypt by aes-128-ctr</strong></p>
-            <textarea [(ngModel)]="encryptedMessageAes128" [style.width.px]="500" [style.height.px]="100"></textarea>
+            <p><strong>Decrypt</strong></p>
+            <textarea [(ngModel)]="encryptedMessage" [style.width.px]="400" [style.height.px]="100"></textarea>
             <p>
-                <button (click)="decrypt()">Decrypt</button>
+                <button (click)="decryptFriend()">Decrypt</button>
             </p>
             <p><i>Decrypted message:</i></p>
-            <p>{{ decryptedMessageAes128 }}</p>
-            <p><strong>Decrypt by crypto_aead_xchacha20poly1305_ietf_decrypt</strong></p>
-            <textarea [(ngModel)]="encryptedMessage" [style.width.px]="500" [style.height.px]="100"></textarea>
-            <p>
-                <button (click)="decrypt('crypto_aead_xchacha20poly1305_ietf_decrypt')">Decrypt</button>
-            </p>
-            <p><i>Decrypted message:</i></p>
-            <p>{{ decryptedMessage }}</p>
-            <p><strong>Decrypt by crypto_secretbox_open_easy</strong></p>
-            <textarea [(ngModel)]="encryptedMessageEasy" [style.width.px]="500" [style.height.px]="100"></textarea>
-            <p>
-                <button (click)="decrypt('crypto_secretbox_open_easy')">Decrypt</button>
-            </p>
-            <p><i>Decrypted message:</i></p>
-            <p>{{ decryptedMessageEasy }}</p>
+            <p>{{ decryptedMessageFriend }}</p>
         </div>
     </div>
 </div>
-

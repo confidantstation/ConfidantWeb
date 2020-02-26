@@ -35,3 +35,31 @@ export interface IDpkiGetPublishBlockResponse {
     block: any;
     verifiers: any;
 }
+
+/**
+ * @interface IDpkiGetOracleInfosByTypeAndIdRequest
+ */
+export interface IDpkiGetOracleInfosByTypeAndIdRequest {
+    type: string;
+    id: string;
+}
+
+/**
+ * @interface IDpkiGetOracleBlockRequest
+ */
+export interface IDpkiGetOracleBlockRequest {
+    account: string;
+    type: string;
+    id: string;
+    pk: string;
+    code: string;
+    hash: string;
+}
+
+/**
+ * @interface IDpkiGetPublishInfosByAccountAndTypeRequest
+ */
+export interface IDpkiGetPublishInfosByAccountAndTypeRequest {
+    account: string;
+    type: string;
+}

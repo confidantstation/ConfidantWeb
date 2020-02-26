@@ -4,9 +4,9 @@ import Client from 'qlc.js/client';
 import { environment } from '../../environments/environment';
 import {
     IAccountCreate,
-    IAccountNewAccounts,
+    IAccountNewAccounts, IDpkiGetOracleBlockRequest, IDpkiGetOracleInfosByTypeAndIdRequest,
     IDpkiGetPublishBlockRequest,
-    IDpkiGetPublishBlockResponse
+    IDpkiGetPublishBlockResponse, IDpkiGetPublishInfosByAccountAndTypeRequest
 } from '../interfaces/api.interface';
 
 @Injectable({
@@ -20,8 +20,7 @@ export class ApiService {
      * @constructor
      */
     constructor() {
-        // this._httpProvider = new httpProvider(environment.rpcUrl[environment.qlcChainNetwork]);
-        this._httpProvider = new httpProvider(environment.rpcUrl['test']);
+        this._httpProvider = new httpProvider(environment.rpcUrl[environment.qlcChainNetwork]);
         this._client = new Client(this._httpProvider, () => {
         });
     }
@@ -72,23 +71,6 @@ export class ApiService {
     }
 
     /**
-     * @method dpki_getPubKeyByTypeAndID
-     * @param {any} dpkiGetPubKeyByTypeAndID
-     * @returns Promise<{ result: string; error?: any }>
-     */
-    async dpki_getPubKeyByTypeAndID(dpkiGetPubKeyByTypeAndID: any): Promise<{ result: any; error?: any }> {
-        try {
-            console.log(dpkiGetPubKeyByTypeAndID);
-            return await this._client.request(this.dpki_getPubKeyByTypeAndID.name, 'email', 'dtacer@gmail.com');
-            // return await this._client.request(this.dpki_getPubKeyByTypeAndID.name, dpkiGetPubKeyByTypeAndID);
-        } catch (error) {
-            console.log(`${this.dpki_getPubKeyByTypeAndID.name} error`);
-            console.log(error);
-            return error;
-        }
-    }
-
-    /**
      * @method ledger_blockHash
      * @param block
      * @returns Promise<{ result: string; error?: any }>
@@ -109,8 +91,6 @@ export class ApiService {
      * @returns Promise<{ result: string; error?: any }>
      */
     async ledger_process(block: any): Promise<{ result: string; error?: any }> {
-        console.log('ledger_process');
-        console.log(block);
         try {
             return await this._client.request(this.ledger_process.name, block);
         } catch (error) {
@@ -136,15 +116,74 @@ export class ApiService {
 
     /**
      * @method dpki_getPublishBlock
-     * @param {IDpkiGetPublishBlockRequest} dpkiGetPublishBlock
+     * @param {IDpkiGetPublishBlockRequest} dpkiGetPublishBlockRequest
      * @returns Promise<{ result: IDpkiGetPublishBlockResponse; error?: any }>
      */
-    async dpki_getPublishBlock(dpkiGetPublishBlock: IDpkiGetPublishBlockRequest): Promise<{ result: IDpkiGetPublishBlockResponse; error?: any }> {
+    async dpki_getPublishBlock(dpkiGetPublishBlockRequest: IDpkiGetPublishBlockRequest): Promise<{ result: IDpkiGetPublishBlockResponse; error?: any }> {
         try {
-            console.log([dpkiGetPublishBlock]);
-            return await this._client.request(this.dpki_getPublishBlock.name, dpkiGetPublishBlock);
+            return await this._client.request(this.dpki_getPublishBlock.name, dpkiGetPublishBlockRequest);
         } catch (error) {
             console.log(`${this.dpki_getPublishBlock.name} error`);
+            console.log(error);
+            return error;
+        }
+    }
+
+    /**
+     * @method dpki_getPubKeyByTypeAndID
+     * @param {any} params
+     * @returns Promise<{ result: string; error?: any }>
+     */
+    async dpki_getPubKeyByTypeAndID(params: any): Promise<{ result: any; error?: any }> {
+        try {
+            return await this._client.request(this.dpki_getPubKeyByTypeAndID.name, params.type, params.id);
+        } catch (error) {
+            console.log(`${this.dpki_getPubKeyByTypeAndID.name} error`);
+            console.log(error);
+            return error;
+        }
+    }
+
+    /**
+     * @method dpki_getPubKeyByTypeAndID
+     * @param {IDpkiGetPublishInfosByAccountAndTypeRequest} dpkiGetPublishInfosByAccountAndTypeRequest
+     * @returns Promise<{ result: string; error?: any }>
+     */
+    async dpki_getPublishInfosByAccountAndType(dpkiGetPublishInfosByAccountAndTypeRequest: IDpkiGetPublishInfosByAccountAndTypeRequest): Promise<{ result: any; error?: any }> {
+        try {
+            return await this._client.request(this.dpki_getPublishInfosByAccountAndType.name, dpkiGetPublishInfosByAccountAndTypeRequest.account, dpkiGetPublishInfosByAccountAndTypeRequest.type);
+        } catch (error) {
+            console.log(`${this.dpki_getPublishInfosByAccountAndType.name} error`);
+            console.log(error);
+            return error;
+        }
+    }
+
+    /**
+     * @method dpki_getOracleBlock
+     * @param {IDpkiGetOracleBlockRequest} dpkiGetOracleBlockRequest
+     * @returns Promise<{ result: any; error?: any }>
+     */
+    async dpki_getOracleBlock(dpkiGetOracleBlockRequest: IDpkiGetOracleBlockRequest): Promise<{ result: any; error?: any }> {
+        try {
+            return await this._client.request(this.dpki_getOracleBlock.name, dpkiGetOracleBlockRequest);
+        } catch (error) {
+            console.log(`${this.dpki_getOracleBlock.name} error`);
+            console.log(error);
+            return error;
+        }
+    }
+
+    /**
+     * @method dpki_getOracleInfosByTypeAndID
+     * @param {IDpkiGetOracleInfosByTypeAndIdRequest} dpkiGetOracleInfosByTypeAndIdRequest
+     * @returns Promise<{ result: any; error?: any }>
+     */
+    async dpki_getOracleInfosByTypeAndID(dpkiGetOracleInfosByTypeAndIdRequest: IDpkiGetOracleInfosByTypeAndIdRequest): Promise<{ result: any; error?: any }> {
+        try {
+            return await this._client.request(this.dpki_getOracleInfosByTypeAndID.name, dpkiGetOracleInfosByTypeAndIdRequest.type, dpkiGetOracleInfosByTypeAndIdRequest.id);
+        } catch (error) {
+            console.log(`${this.dpki_getOracleInfosByTypeAndID.name} error`);
             console.log(error);
             return error;
         }

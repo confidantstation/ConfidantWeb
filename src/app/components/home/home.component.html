@@ -1,10 +1,11 @@
 <div class="container">
     <div class="row">
         <div class="col-12">
-            <button [routerLink]="'/account/create'">Create Account</button>
-            <button [routerLink]="'/account/import'">Import Account</button>
-            <button [routerLink]="'/chat'">Chat</button>
-            <button [routerLink]="'/social'">Social connect</button>
+            <button [routerLink]="'/account/create'" *ngIf="!accountExist">Create Account</button>
+            <button [routerLink]="'/account/import'" *ngIf="!accountExist">Import Account</button>
+            <button [routerLink]="'/chat'" *ngIf="accountExist">Chat</button>
+            <button [routerLink]="'/social'" *ngIf="accountExist">Social Connect</button>
+            <button (click)="deleteAccount()" *ngIf="accountExist" style="float: right">Delete Account</button>
         </div>
     </div>
 </div>

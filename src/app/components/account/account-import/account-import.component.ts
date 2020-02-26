@@ -3,6 +3,7 @@ import { AccountService } from '../../../services/account.service';
 import { ImportOptionEnum } from '../../../enums/import-option.enum';
 import * as bip39 from 'bip39';
 import { IAccount } from '../../../interfaces/app.interface';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-account-import',
@@ -13,12 +14,17 @@ export class AccountImportComponent implements OnInit {
     account: IAccount;
     importOptionType: ImportOptionEnum = ImportOptionEnum.SEED;
     wif: string;
+    inProgress: boolean;
 
     /**
      * @constructor
      * @param {AccountService} _accountService
+     * @param {Router} _router
      */
-    constructor(private _accountService: AccountService) {
+    constructor(
+        private _accountService: AccountService,
+        private _router: Router
+    ) {
     }
 
     /**
@@ -30,7 +36,7 @@ export class AccountImportComponent implements OnInit {
     /**
      * @method import
      */
-    async import(): Promise<void> {
+    async import(): Promise<boolean> {
         if (!this.wif) {
             return;
         }
@@ -51,10 +57,11 @@ export class AccountImportComponent implements OnInit {
             if (!this.wif || this.wif.length !== 64) {
                 return;
             }
-        } else {
-
         }
 
+        this.inProgress = !this.inProgress;
         await this._accountService.createFromSeed(this.wif);
+
+        return this._router.navigate(['/']);
     }
 }

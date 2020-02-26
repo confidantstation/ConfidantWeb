@@ -5,6 +5,10 @@ export class MainHelper {
      * @returns {string}
      */
     static GetRandomNumber = (length: number = 4): number => {
-        return Math.floor((Math.random() * Math.pow(10, length)) + Math.pow(9, length - 1));
+        if (length === 1) {
+            return Math.floor((Math.random() * 9) + 1);
+        }
+
+        return Math.floor((Math.random() * (Math.pow(10, length) - Math.pow(10, length - 1))) + Math.pow(10, length - 1));
     };
 }
